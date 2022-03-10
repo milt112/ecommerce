@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "category".
@@ -24,7 +25,7 @@ class Category extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules() 
     {
         return [
             [['name', 'description'], 'required'],
@@ -44,4 +45,6 @@ class Category extends \yii\db\ActiveRecord
             'description' => 'Description',
         ];
     }
+
+    
 }

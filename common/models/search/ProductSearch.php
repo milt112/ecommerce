@@ -1,15 +1,16 @@
 <?php
 
-namespace backend\models\search;
+namespace common\models\search;
 
-use common\models\TimelineEvent;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Product;
 
 /**
- * TimelineEventSearch represents the model behind the search form about `common\models\TimelineEvent`.
+ * ProductSearch represents the model behind the search form about `common\models\Product`.
  */
-class TimelineEventSearch extends TimelineEvent
+class ProductSearch extends Product
 {
     /**
      * @inheritdoc
@@ -17,7 +18,8 @@ class TimelineEventSearch extends TimelineEvent
     public function rules()
     {
         return [
-            [['application', 'category', 'event', 'created_at'], 'safe'],
+            [['id', 'category_id', 'price', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
+            [['name', 'description'], 'safe'],
         ];
     }
 
@@ -39,7 +41,7 @@ class TimelineEventSearch extends TimelineEvent
      */
     public function search($params)
     {
-        $query = TimelineEvent::find();
+        $query = Product::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -51,12 +53,16 @@ class TimelineEventSearch extends TimelineEvent
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'category_id' => $this->category_id,
+            'price' => $this->price,
+            'created_by' => $this->created_by,
             'created_at' => $this->created_at,
+            'updated_by' => $this->updated_by,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'application', $this->application]);
-        $query->andFilterWhere(['like', 'category', $this->category]);
-        $query->andFilterWhere(['like', 'event', $this->event]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

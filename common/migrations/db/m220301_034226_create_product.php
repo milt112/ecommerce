@@ -19,6 +19,8 @@ class m220301_034226_create_product extends Migration
             'name' => $this->string(255)->notNull(),
             'description' => $this->text()->notNull(),
             'price' => $this->integer()->notNull(),
+            //'image' => $this->string()->notNull(),
+            'namepath' =>$this->string(),
             'created_by' => $this->integer(),
             'created_at' => $this->integer(),
             'updated_by' => $this->integer(),
